@@ -21,7 +21,7 @@ def get_session():
 
 @app.get("/")
 def root():
-    return "todooo"
+    return "fastapi crud"
 
 @app.post("/todo", response_model=schemas.ToDo, status_code=status.HTTP_201_CREATED)
 def create_todo(todo: schemas.ToDoCreate, session: Session = Depends(get_session)):
