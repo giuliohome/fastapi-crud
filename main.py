@@ -1,9 +1,10 @@
 from typing import List
 from fastapi import FastAPI, status, HTTPException, Depends
-from database import Base, engine, SessionLocal
+from database import Base, engine, get_session
 from sqlalchemy.orm import Session
 import models
 import schemas
+import api
 
 # Create the database
 Base.metadata.create_all(engine)
@@ -11,17 +12,13 @@ Base.metadata.create_all(engine)
 # Initialize app
 app = FastAPI()
 
-# Helper function to get database session
-def get_session():
-    session = SessionLocal()
-    try:
-        yield session
-    finally:
-        session.close()
-
 @app.get("/")
 def root():
     return "fastapi crud"
+
+@app.post("/refdate1", response_model=schemas.RefDate1, status_code=status.HTTP_201_CREATED)
+def create_refdate1(refdate1: schemas.RefDate1, session: Session = Depends(get_session)):
+    return api.create_refdate1_impl(refdate1, session)
 
 @app.post("/todo", response_model=schemas.ToDo, status_code=status.HTTP_201_CREATED)
 def create_todo(todo: schemas.ToDoCreate, session: Session = Depends(get_session)):
