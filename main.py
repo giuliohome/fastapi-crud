@@ -19,6 +19,12 @@ def root():
 @app.post("/refdate1", response_model=schemas.RefDate1, status_code=status.HTTP_201_CREATED)
 def create_refdate1(refdate1: schemas.RefDate1, session: Session = Depends(get_session)):
     return api.create_refdate1_impl(refdate1, session)
+@app.post("/refdate2", response_model=schemas.RefDate2, status_code=status.HTTP_201_CREATED)
+def create_refdate1(refdate2: schemas.RefDate2, session: Session = Depends(get_session)):
+    return api.create_refdate2_impl(refdate2, session)
+@app.post("/refdate3", response_model=schemas.RefDate3, status_code=status.HTTP_201_CREATED)
+def create_refdate1(refdate3: schemas.RefDate3, session: Session = Depends(get_session)):
+    return api.create_refdate3_impl(refdate3, session)
 
 @app.post("/todo", response_model=schemas.ToDo, status_code=status.HTTP_201_CREATED)
 def create_todo(todo: schemas.ToDoCreate, session: Session = Depends(get_session)):
